@@ -4,30 +4,30 @@ public class EnvironmentController {
 
 	private HVAC hvac;
 
-	private boolean heatStatus;
+	private boolean heatOn;
 
-	private boolean coolStatus;
+	private boolean coolOn;
 
-	private boolean fanStatus;
+	private boolean fanOn;
 
-	public boolean isHeatStatus() {
-		return heatStatus;
+	public boolean isHeatOn() {
+		return heatOn;
 	}
 
-	public void setHeatStatus(boolean heatStatus) {
-		this.heatStatus = heatStatus;
+	public void setHeatOn(boolean heatOn) {
+		this.heatOn = heatOn;
 	}
 
-	public void setCoolStatus(boolean coolStatus) {
-		this.coolStatus = coolStatus;
+	public void setCoolOn(boolean coolOn) {
+		this.coolOn = coolOn;
 	}
 
-	public boolean isCoolStatus() {
-		return coolStatus;
+	public boolean isCoolOn() {
+		return coolOn;
 	}
 
-	public boolean isFanStatus() {
-		return fanStatus;
+	public boolean isFanOn() {
+		return fanOn;
 	}
 
 	private int fanTurnOffTimer = 0;
@@ -48,32 +48,44 @@ public class EnvironmentController {
 		decrementFanTurnOffTimer();
 		int temp = hvac.temp();
 		if (temp >= 65 && temp <= 75) {
-			if (heatStatus) {
-				heatStatus = false;
-				fanTurnOffTimer = 5;
-			} else if (coolStatus) {
-				coolStatus = false;
-				fanTurnOffTimer = 3;
-			}
-			fanStatus = false;
-			hvac.heat(false);
-			hvac.cool(false);
-			hvac.fan(false);
+			handleRoomTempSettings();
 		} else if (temp < 65) {
-			hvac.heat(true);
-			heatStatus = true;
-			turnOnFanIfCounterIsOff();
+			turnOnHeatAndFanWhenTempIsLow();
 		} else if (temp > 75) {
-			hvac.cool(true);
-			coolStatus = true;
-			turnOnFanIfCounterIsOff();
+			turnOnCoolAndFanWhenTheTempIsHigh();
 		}
+	}
+
+	private void handleRoomTempSettings() {
+		if (heatOn) {
+			heatOn = false;
+			fanTurnOffTimer = 5;
+		} else if (coolOn) {
+			coolOn = false;
+			fanTurnOffTimer = 3;
+		}
+		fanOn = false;
+		hvac.heat(false);
+		hvac.cool(false);
+		hvac.fan(false);
+	}
+
+	private void turnOnCoolAndFanWhenTheTempIsHigh() {
+		hvac.cool(true);
+		coolOn = true;
+		turnOnFanIfCounterIsOff();
+	}
+
+	private void turnOnHeatAndFanWhenTempIsLow() {
+		hvac.heat(true);
+		heatOn = true;
+		turnOnFanIfCounterIsOff();
 	}
 
 	private void turnOnFanIfCounterIsOff() {
 		if (fanTurnOffTimer == 0) {
 			hvac.fan(true);
-			fanStatus = true;
+			fanOn = true;
 		}
 	}
 }

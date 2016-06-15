@@ -17,9 +17,9 @@ public class EnvironmentControllerTest {
 		controller = new EnvironmentController(dummy);
 		controller.tick();
 		assertEquals(70, dummy.temp());
-		assertEquals(false, controller.isFanStatus());
-		assertEquals(false, controller.isHeatStatus());
-		assertEquals(false, controller.isCoolStatus());
+		assertEquals(false, controller.isFanOn());
+		assertEquals(false, controller.isHeatOn());
+		assertEquals(false, controller.isCoolOn());
 	}
 
 	@Test
@@ -27,8 +27,8 @@ public class EnvironmentControllerTest {
 		HVACDummy dummy = new HVACDummy(60);
 		controller = new EnvironmentController(dummy);
 		controller.tick();
-		assertEquals(true, controller.isHeatStatus());
-		assertEquals(true, controller.isFanStatus());
+		assertEquals(true, controller.isHeatOn());
+		assertEquals(true, controller.isFanOn());
 	}
 
 	@Test
@@ -36,41 +36,45 @@ public class EnvironmentControllerTest {
 		HVACDummy dummy = new HVACDummy(80);
 		controller = new EnvironmentController(dummy);
 		controller.tick();
-		assertEquals(true, controller.isCoolStatus());
-		assertEquals(true, controller.isFanStatus());
+		assertEquals(true, controller.isCoolOn());
+		assertEquals(true, controller.isFanOn());
 	}
 
 	@Test
 	public void turnOnCoolWhenTheTemparatureIsGreaterThan75AndFanTimerIsOn() {
 		controller = new EnvironmentController(new HVACDummy(70));
-		controller.setHeatStatus(true);
+		controller.setHeatOn(true);
 		controller.tick();
-		assertEquals(false, controller.isFanStatus());
+		assertEquals(false, controller.isFanOn());
 		controller.setHvac(new HVACDummy(80));
+		// 1st tick when fan counter is set
 		controller.tick();
-		assertEquals(false, controller.isFanStatus());
-		assertEquals(true, controller.isCoolStatus());
+		assertEquals(false, controller.isFanOn());
+		assertEquals(true, controller.isCoolOn());
 		controller.tick();
 		controller.tick();
 		controller.tick();
+		// 5th tick when fan counter is reset
 		controller.tick();
-		assertEquals(true, controller.isFanStatus());
-		assertEquals(true, controller.isCoolStatus());
+		assertEquals(true, controller.isFanOn());
+		assertEquals(true, controller.isCoolOn());
 	}
 	
 	public void turnOnHeatWhenTheTemparatureIsLessThan65AndFanTimerIsOn() {
 		controller = new EnvironmentController(new HVACDummy(70));
-		controller.setCoolStatus(true);
+		controller.setCoolOn(true);
 		controller.tick();
-		assertEquals(false, controller.isFanStatus());
+		assertEquals(false, controller.isFanOn());
 		controller.setHvac(new HVACDummy(60));
+		// 1st tick when fan counter is set
 		controller.tick();
-		assertEquals(true, controller.isHeatStatus());
-		assertEquals(false, controller.isFanStatus());
+		assertEquals(true, controller.isHeatOn());
+		assertEquals(false, controller.isFanOn());
 		controller.tick();
+		// 3rd tick when fan counter is reset
 		controller.tick();
-		assertEquals(true, controller.isFanStatus());
-		assertEquals(true, controller.isHeatStatus());
+		assertEquals(true, controller.isFanOn());
+		assertEquals(true, controller.isHeatOn());
 	}
 
 }
