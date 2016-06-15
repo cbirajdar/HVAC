@@ -2,6 +2,7 @@
 apply plugin: 'java'
 apply plugin: 'idea'
 apply plugin: 'eclipse'
+apply plugin: 'jacoco'
 
 // In this section you declare where to find the dependencies of your project
 repositories {
@@ -12,3 +13,12 @@ repositories {
 dependencies {
     testCompile 'junit:junit:4.12'
 }
+
+jacocoTestReport {
+    reports {
+        xml.enabled = true
+        html.enabled = true
+    }
+}
+
+check.dependsOn jacocoTestReport
