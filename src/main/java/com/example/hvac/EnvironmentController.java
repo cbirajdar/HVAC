@@ -10,6 +10,10 @@ public class EnvironmentController {
 
 	private boolean fanOn;
 
+	private int minTemp = 65;
+
+	private int maxTemp = 75;
+
 	public boolean isHeatOn() {
 		return heatOn;
 	}
@@ -47,9 +51,9 @@ public class EnvironmentController {
 	public void tick() {
 		decrementFanTurnOffTimer();
 		int temp = hvac.temp();
-		if (temp >= 65 && temp <= 75) {
+		if (temp >= minTemp && temp <= maxTemp) {
 			handleRoomTempSettings();
-		} else if (temp < 65) {
+		} else if (temp < minTemp) {
 			turnOnHeatAndFanWhenTempIsLow();
 		} else {
 			turnOnCoolAndFanWhenTheTempIsHigh();
