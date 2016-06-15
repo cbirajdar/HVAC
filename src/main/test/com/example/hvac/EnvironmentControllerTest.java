@@ -60,6 +60,7 @@ public class EnvironmentControllerTest {
 		assertEquals(true, controller.isCoolOn());
 	}
 	
+	@Test
 	public void turnOnHeatWhenTheTemparatureIsLessThan65AndFanTimerIsOn() {
 		controller = new EnvironmentController(new HVACDummy(70));
 		controller.setCoolOn(true);

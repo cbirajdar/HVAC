@@ -51,7 +51,7 @@ public class EnvironmentController {
 			handleRoomTempSettings();
 		} else if (temp < 65) {
 			turnOnHeatAndFanWhenTempIsLow();
-		} else if (temp > 75) {
+		} else {
 			turnOnCoolAndFanWhenTheTempIsHigh();
 		}
 	}
