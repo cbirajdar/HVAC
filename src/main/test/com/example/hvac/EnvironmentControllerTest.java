@@ -52,8 +52,11 @@ public class EnvironmentControllerTest {
 		assertEquals(false, controller.isFanOn());
 		assertEquals(true, controller.isCoolOn());
 		controller.tick();
+		assertEquals(false, controller.isFanOn());
 		controller.tick();
+		assertEquals(false, controller.isFanOn());
 		controller.tick();
+		assertEquals(false, controller.isFanOn());
 		// 5th tick when fan counter is reset
 		controller.tick();
 		assertEquals(true, controller.isFanOn());
@@ -72,6 +75,7 @@ public class EnvironmentControllerTest {
 		assertEquals(true, controller.isHeatOn());
 		assertEquals(false, controller.isFanOn());
 		controller.tick();
+		assertEquals(false, controller.isFanOn());
 		// 3rd tick when fan counter is reset
 		controller.tick();
 		assertEquals(true, controller.isFanOn());
