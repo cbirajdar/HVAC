@@ -81,5 +81,27 @@ public class EnvironmentControllerTest {
 		assertEquals(true, controller.isFanOn());
 		assertEquals(true, controller.isHeatOn());
 	}
+	
+	@Test
+	public void keepTheHeatWhenTheTemparatureIsGreaterThan65AndLessThan68() {
+		controller = new EnvironmentController(new HVACDummy(65));
+		controller.setHeatOn(true);
+		controller.setEnableThreshold(true);
+		controller.tick();
+		assertEquals(true, controller.isHeatOn());
+	}
+	
+	@Test
+	public void keepTheCoolWhenTheTemparatureIsGreaterThan72AndLessThan75() {
+		controller = new EnvironmentController(new HVACDummy(75));
+		controller.setCoolOn(true);
+		controller.setEnableThreshold(true);
+		controller.tick();
+		assertEquals(true, controller.isCoolOn());
+		controller.setHvac(new HVACDummy(71));
+		controller.tick();
+		assertEquals(false, controller.isCoolOn());
+		assertEquals(false, controller.isFanOn());
+	}
 
 }
