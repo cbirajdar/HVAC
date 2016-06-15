@@ -1,1 +1,4 @@
-https://api.travis-ci.org/cbirajdar/HVAC.svg
+<a href="https://travis-ci.org/cbirajdar/HVAC">
+   <img src="https://img.shields.io/travis/cbirajdar/HVAC.svg?style=flat-square"
+        alt="Build Status">
+</a>
