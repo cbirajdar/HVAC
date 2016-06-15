@@ -14,9 +14,7 @@ public class HVACMain {
 			maxTemp = Integer.parseInt(args[1]);
 		}
 		// Send minTemp and maxTemp values to socket server / router
-		ServerSocketWrapper wrapper = new ServerSocketWrapper();
-		wrapper.start();
-		wrapper.stop();
+		new ServerSocketWrapper().startAndAccept();
 	}
 
 }
