@@ -14,6 +14,14 @@ public class EnvironmentController {
 
 	private int maxTemp = 75;
 
+	public int getMinTemp() {
+		return minTemp;
+	}
+
+	public int getMaxTemp() {
+		return maxTemp;
+	}
+
 	public boolean isHeatOn() {
 		return heatOn;
 	}
