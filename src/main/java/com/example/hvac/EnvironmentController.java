@@ -37,7 +37,8 @@ public class EnvironmentController {
 	private int fanTurnOffTimer = 0;
 
 	public void decrementFanTurnOffTimer() {
-		if (fanTurnOffTimer > 0) fanTurnOffTimer--;
+		if (fanTurnOffTimer > 0)
+			fanTurnOffTimer--;
 	}
 
 	public void setHvac(HVAC hvac) {
@@ -46,6 +47,11 @@ public class EnvironmentController {
 
 	public EnvironmentController(HVAC hvac) {
 		this.hvac = hvac;
+	}
+
+	public void setTempratureRanges(int minTemp, int maxTemp) {
+		this.minTemp = minTemp;
+		this.maxTemp = maxTemp;
 	}
 
 	public void tick() {

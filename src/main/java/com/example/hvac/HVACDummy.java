@@ -6,6 +6,10 @@ public class HVACDummy implements HVAC {
 
 	private int currentTemp;
 
+	public HVACDummy() {
+
+	}
+
 	public HVACDummy(int temp) {
 		this.currentTemp = temp;
 	}
