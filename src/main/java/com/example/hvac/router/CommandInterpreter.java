@@ -3,11 +3,15 @@ package com.example.hvac.router;
 import com.example.hvac.Constants;
 import com.example.hvac.EnvironmentController;
 
-public class HvacRouter {
+public class CommandInterpreter {
 
 	private EnvironmentController controller;
 
-	public HvacRouter(EnvironmentController controller) {
+	public void setEnvironmentController(EnvironmentController controller) {
+		this.controller = controller;
+	}
+
+	public CommandInterpreter(EnvironmentController controller) {
 		this.controller = controller;
 	}
 

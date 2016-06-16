@@ -2,6 +2,7 @@ package com.example.hvac;
 
 import java.io.IOException;
 
+import com.example.hvac.router.CommandInterpreter;
 import com.example.hvac.socket.ServerSocketWrapper;
 
 public class HVACMain {
@@ -13,8 +14,9 @@ public class HVACMain {
 			minTemp = Integer.parseInt(args[0]);
 			maxTemp = Integer.parseInt(args[1]);
 		}
-		// Send minTemp and maxTemp values to socket server / router
+		// Call CommandInterpreter and set the initial temperature ranges
+		// TODO
+		// Start the socket server
 		new ServerSocketWrapper().startAndAccept();
 	}
-
 }

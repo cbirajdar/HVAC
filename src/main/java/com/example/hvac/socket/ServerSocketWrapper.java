@@ -36,6 +36,7 @@ public class ServerSocketWrapper {
 
 	public void stop() throws IOException {
 		if (!isClosed()) {
+			accepted = false;
 			serverSocket.close();
 		}
 	}

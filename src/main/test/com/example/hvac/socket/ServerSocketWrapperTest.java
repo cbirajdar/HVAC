@@ -4,11 +4,11 @@ import java.io.IOException;
 import java.net.Socket;
 
 import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import com.example.hvac.HVACMain;
 import com.example.hvac.utils.CommonUtils;
 
 import static org.junit.Assert.*;
@@ -16,28 +16,35 @@ import static org.junit.Assert.*;
 public class ServerSocketWrapperTest {
 
 	private Socket client;
+	
+	private static ServerSocketWrapper wrapper;
 
 	@BeforeClass
-	public static void beforeClass() {
+	public static void beforeClass() throws IOException {
+		wrapper = new ServerSocketWrapper();
 		new Thread() {
-			public void run() {
-				String[] args = new String[]{};
+			public void run() {;
 				try {
-					HVACMain.main(args);
+					wrapper.startAndAccept();
 				} catch (IOException e) {
-					e.printStackTrace();
+					//
 				}
 			}
 		}.start();
 	}
 
+	@AfterClass
+	public static void afterClass() throws IOException {
+		wrapper.stop();
+	}
+
 	@Before
-	public void setUp() throws IOException {
+	public void setUp() throws Exception {
 		client = new Socket("localhost", 9999);
 	}
 
 	@After
-	public void tearDown() throws IOException {
+	public void tearDown() throws Exception {
 		client.close();
 	}
 

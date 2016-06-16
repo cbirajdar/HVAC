@@ -2,15 +2,15 @@ package com.example.hvac;
 
 import com.example.hvac.HVAC;
 
-public class HVACDummy implements HVAC {
+public class HVACImpl implements HVAC {
 
 	private int currentTemp;
 
-	public HVACDummy() {
+	public HVACImpl() {
 
 	}
 
-	public HVACDummy(int temp) {
+	public HVACImpl(int temp) {
 		this.currentTemp = temp;
 	}
 
