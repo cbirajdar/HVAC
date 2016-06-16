@@ -2,6 +2,8 @@ package com.example.hvac;
 
 public class EnvironmentController {
 
+	private static EnvironmentController INSTANCE;
+
 	private HVAC hvac;
 
 	private boolean heatOn;
@@ -13,6 +15,27 @@ public class EnvironmentController {
 	private int minTemp = 65;
 
 	private int maxTemp = 75;
+
+	public static synchronized EnvironmentController getInstance() {
+		if (INSTANCE == null) {
+			INSTANCE = new EnvironmentController(new HVACImpl());
+		}
+		return INSTANCE;
+	}
+
+	public void resetToDefaultTemperatureRange() {
+		this.minTemp = 65;
+		this.maxTemp = 75;
+	}
+
+	public void setTempratureRanges(int minTemp, int maxTemp) {
+		this.minTemp = minTemp;
+		this.maxTemp = maxTemp;
+	}
+
+	private EnvironmentController(HVAC hvac) {
+		this.hvac = hvac;
+	}
 
 	public int getMinTemp() {
 		return minTemp;
@@ -51,15 +74,6 @@ public class EnvironmentController {
 
 	public void setHvac(HVAC hvac) {
 		this.hvac = hvac;
-	}
-
-	public EnvironmentController(HVAC hvac) {
-		this.hvac = hvac;
-	}
-
-	public void setTempratureRanges(int minTemp, int maxTemp) {
-		this.minTemp = minTemp;
-		this.maxTemp = maxTemp;
 	}
 
 	public void tick() {

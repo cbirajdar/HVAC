@@ -14,9 +14,7 @@ public class HVACMain {
 			minTemp = Integer.parseInt(args[0]);
 			maxTemp = Integer.parseInt(args[1]);
 		}
-		// Call CommandInterpreter and set the initial temperature ranges
-		// TODO
-		// Start the socket server
+		new CommandInterpreter().setTheTemperatureRangeOnHVAC(minTemp, maxTemp);
 		new ServerSocketWrapper().startAndAccept();
 	}
 }

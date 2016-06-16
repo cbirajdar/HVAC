@@ -2,6 +2,7 @@ package com.example.hvac;
 
 import static org.junit.Assert.*;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import com.example.hvac.EnvironmentController;
@@ -9,12 +10,17 @@ import com.example.hvac.HVACImpl;
 
 public class EnvironmentControllerTest {
 
-	private EnvironmentController controller;
+	private EnvironmentController controller = EnvironmentController.getInstance();
+
+	@Before
+	public void setUp() {
+		controller.resetToDefaultTemperatureRange();
+	}
 
 	@Test
 	public void doesNothingWhenTheTemperatureIsBetween65And75() {
 		HVAC hvac = new HVACImpl(70);
-		controller = new EnvironmentController(hvac);
+		controller.setHvac(hvac);
 		controller.tick();
 		assertEquals(70, hvac.temp());
 		assertEquals(false, controller.isFanOn());
@@ -25,7 +31,7 @@ public class EnvironmentControllerTest {
 	@Test
 	public void turnOnHeatWhenTheTemparatureIsLessThan65() {
 		HVAC hvac = new HVACImpl(60);
-		controller = new EnvironmentController(hvac);
+		controller.setHvac(hvac);
 		controller.tick();
 		assertEquals(true, controller.isHeatOn());
 		assertEquals(true, controller.isFanOn());
@@ -34,7 +40,7 @@ public class EnvironmentControllerTest {
 	@Test
 	public void turnOnCoolWhenTheTemparatureIsGreaterThan75() {
 		HVAC hvac = new HVACImpl(80);
-		controller = new EnvironmentController(hvac);
+		controller.setHvac(hvac);
 		controller.tick();
 		assertEquals(true, controller.isCoolOn());
 		assertEquals(true, controller.isFanOn());
@@ -42,7 +48,7 @@ public class EnvironmentControllerTest {
 
 	@Test
 	public void turnOnCoolWhenTheTemparatureIsGreaterThan75AndFanTimerIsOn() {
-		controller = new EnvironmentController(new HVACImpl(70));
+		controller.setHvac(new HVACImpl(70));
 		controller.setHeatOn(true);
 		controller.tick();
 		assertEquals(false, controller.isFanOn());
@@ -65,7 +71,7 @@ public class EnvironmentControllerTest {
 
 	@Test
 	public void turnOnHeatWhenTheTemparatureIsLessThan65AndFanTimerIsOn() {
-		controller = new EnvironmentController(new HVACImpl(70));
+		controller.setHvac(new HVACImpl(70));
 		controller.setCoolOn(true);
 		controller.tick();
 		assertEquals(false, controller.isFanOn());

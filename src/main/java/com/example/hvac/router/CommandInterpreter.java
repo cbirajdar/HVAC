@@ -7,12 +7,8 @@ public class CommandInterpreter {
 
 	private EnvironmentController controller;
 
-	public void setEnvironmentController(EnvironmentController controller) {
-		this.controller = controller;
-	}
-
-	public CommandInterpreter(EnvironmentController controller) {
-		this.controller = controller;
+	public CommandInterpreter() {
+		this.controller = EnvironmentController.getInstance();
 	}
 
 	public void setTheTemperatureRangeOnHVAC(int minTemp, int maxTemp) {

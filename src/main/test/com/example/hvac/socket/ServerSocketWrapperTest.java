@@ -16,14 +16,14 @@ import static org.junit.Assert.*;
 public class ServerSocketWrapperTest {
 
 	private Socket client;
-	
+
 	private static ServerSocketWrapper wrapper;
 
 	@BeforeClass
 	public static void beforeClass() throws IOException {
 		wrapper = new ServerSocketWrapper();
 		new Thread() {
-			public void run() {;
+			public void run() {
 				try {
 					wrapper.startAndAccept();
 				} catch (IOException e) {
@@ -57,6 +57,26 @@ public class ServerSocketWrapperTest {
 	public void testReadFromAndWriteToServerSocket() throws IOException, InterruptedException {
 		CommonUtils.writeToSocket(client, "testWriteToServerSocket");
 		assertEquals("testWriteToServerSocket", CommonUtils.readFromSocket(client));
+	}
+
+	@Test
+	public void testSetValidHighTemperature() {
+
+	}
+
+	@Test
+	public void testSetInvalidHighTemperature() {
+
+	}
+
+	@Test
+	public void testSetValidLowTemperature() {
+
+	}
+
+	@Test
+	public void testSetInvalidLowTemperature() {
+
 	}
 
 }
