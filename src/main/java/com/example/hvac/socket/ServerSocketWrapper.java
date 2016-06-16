@@ -10,7 +10,7 @@ public class ServerSocketWrapper {
 
 	private final int PORT = 9999;
 
-	private boolean accepted = true;
+	private boolean acceptConnections = true;
 
 	private ServerSocket serverSocket;
 
@@ -28,7 +28,7 @@ public class ServerSocketWrapper {
 	}
 
 	private void accept() throws IOException {
-		while (accepted) {
+		while (acceptConnections) {
 			Socket socket = serverSocket.accept();
 			CommonUtils.readFromAndWriteToSocket(socket);
 		}
@@ -36,7 +36,7 @@ public class ServerSocketWrapper {
 
 	public void stop() throws IOException {
 		if (!isClosed()) {
-			accepted = false;
+			acceptConnections = false;
 			serverSocket.close();
 		}
 	}

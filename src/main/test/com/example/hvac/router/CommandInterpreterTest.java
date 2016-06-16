@@ -14,7 +14,7 @@ public class CommandInterpreterTest {
 	@Rule
 	public ExpectedException thrown = ExpectedException.none();
 
-	private CommandInterpreter router;
+	private CommandInterpreter interpreter;
 
 	private EnvironmentController controller;
 
@@ -26,28 +26,28 @@ public class CommandInterpreterTest {
 
 	@Test
 	public void setTheValidTemperatureRanges() {
-		router = new CommandInterpreter();
-		router.setTheTemperatureRangeOnHVAC(70, 80);
+		interpreter = new CommandInterpreter();
+		interpreter.setTheTemperatureRangeOnHVAC(70, 80);
 		assertEquals(70, controller.getMinTemp());
 		assertEquals(80, controller.getMaxTemp());
 	}
 
 	@Test(expected = IllegalArgumentException.class)
 	public void setMinTempHigherThanMaxTemp() {
-		router = new CommandInterpreter();
-		router.setTheTemperatureRangeOnHVAC(70, 65);
+		interpreter = new CommandInterpreter();
+		interpreter.setTheTemperatureRangeOnHVAC(70, 65);
 	}
 
 	@Test(expected = IllegalArgumentException.class)
 	public void setMaxTempMuchHigherThanMinTemp() {
-		router = new CommandInterpreter();
-		router.setTheTemperatureRangeOnHVAC(65, 66);
+		interpreter = new CommandInterpreter();
+		interpreter.setTheTemperatureRangeOnHVAC(65, 66);
 	}
 
 	@Test
 	public void setValidMaxTempGivenTheDefaultTempRange() {
-		router = new CommandInterpreter();
-		router.setTheHighTemperatureOnHVAC(80);
+		interpreter = new CommandInterpreter();
+		interpreter.setTheHighTemperatureOnHVAC(80);
 		assertEquals(65, controller.getMinTemp());
 		assertEquals(80, controller.getMaxTemp());
 	}
@@ -56,14 +56,14 @@ public class CommandInterpreterTest {
 	public void setInValidMaxTempGivenTheDefaultTempRange() {
 		thrown.expect(IllegalArgumentException.class);
 		thrown.expectMessage("Max temperature should be at least five degrees warmer than min temperature.");
-		router = new CommandInterpreter();
-		router.setTheHighTemperatureOnHVAC(69);
+		interpreter = new CommandInterpreter();
+		interpreter.setTheHighTemperatureOnHVAC(69);
 	}
 
 	@Test
 	public void setValidMinTempGivenTheDefaultTempRange() {
-		router = new CommandInterpreter();
-		router.setTheLowTemperatureOnHVAC(60);
+		interpreter = new CommandInterpreter();
+		interpreter.setTheLowTemperatureOnHVAC(60);
 		assertEquals(60, controller.getMinTemp());
 		assertEquals(75, controller.getMaxTemp());
 	}
@@ -72,8 +72,8 @@ public class CommandInterpreterTest {
 	public void setInValidMinTempGivenTheDefaultTempRange() {
 		thrown.expect(IllegalArgumentException.class);
 		thrown.expectMessage("Max temperature should be at least five degrees warmer than min temperature.");
-		router = new CommandInterpreter();
-		router.setTheLowTemperatureOnHVAC(72);
+		interpreter = new CommandInterpreter();
+		interpreter.setTheLowTemperatureOnHVAC(72);
 	}
 
 }
